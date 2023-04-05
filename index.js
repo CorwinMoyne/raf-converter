@@ -48,9 +48,9 @@ tabNames.forEach((tabName) => {
     fields: [],
   };
 
-  for (let i = 0; i < rows.length - 1; i++) {
-    obj.fields.push({ name: toCamelCase(rows[i].desc), value: rows[i].sample });
-  }
+  rows.forEach((row) =>
+    obj.fields.push({ name: toCamelCase(row.desc), value: row.sample })
+  );
 
   const json = JSON.stringify(obj);
 
