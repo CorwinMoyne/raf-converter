@@ -30,13 +30,15 @@ const result = excelToJson({
   columnToKey: {
     A: "desc",
     B: "sample",
+    C: "dataFormat",
+    E: "required",
   },
 });
 
 /**
  * Insert excel tab names here
  */
-const tabNames = ["Injury Claim", "Supplier Claim"];
+const tabNames = ["Injury Claim", "Death Claim"];
 
 /**
  * Loop the tabs, convert the data to an object and write to a json file
@@ -49,7 +51,17 @@ tabNames.forEach((tabName) => {
   };
 
   rows.forEach((row) =>
-    obj.fields.push({ name: toCamelCase(row.desc), value: row.sample })
+    obj.fields.push({
+      name: toCamelCase(row.desc),
+      value: row.sample,
+      in: "path",
+      description: row.desc,
+      required: row.required,
+      schema: {
+        type: row.desc.includes("no.") ? "number" : "string",
+        format: row.dataFormat,
+      },
+    })
   );
 
   const json = JSON.stringify(obj);
