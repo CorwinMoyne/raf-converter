@@ -87,7 +87,9 @@ tabNames.forEach((tabName) => {
     }
     if (row.sample) {
       obj.fields.push({
-        name: new formatString(`${prepend}${row.desc}`).cleanUp().toCamelCase(),
+        name: `${prepend}-${new formatString(row.desc)
+          .cleanUp()
+          .toCamelCase()}`,
         value: row.sample,
       });
     }
